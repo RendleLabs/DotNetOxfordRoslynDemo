@@ -10,7 +10,21 @@ namespace RoslynDemo
     {
         public static async Task ListAsync(Solution solution)
         {
-            throw new NotImplementedException();
+            foreach (var document in solution.Projects.SelectMany(p => p.Documents))
+            {
+                var root = await document.GetSyntaxRootAsync();
+                if (root is null) continue;
+
+                foreach (var typeDeclarationSyntax in root.DescendantNodes().OfType<BaseTypeDeclarationSyntax>())
+                {
+                    var namespaceDeclarationSyntax = typeDeclarationSyntax.FirstAncestorOrSelf<NamespaceDeclarationSyntax>();
+
+                    var typeName = typeDeclarationSyntax.Identifier.Text;
+                    var namespaceName = namespaceDeclarationSyntax?.Name.ToString();
+
+                    Console.WriteLine($"{namespaceName}.{typeName}");
+                }
+            }
         }
     }
 }

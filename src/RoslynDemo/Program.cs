@@ -17,7 +17,7 @@ namespace RoslynDemo
             // await SyntaxVisitorDemo.ListAsync(solution);
             // await SymbolDemo.ListAsync(solution);
             // await DependenciesDemo.ListAllUsedTypes(solution);
-            // await RewriterDemo.UpshiftAllStrings(workspace);
+            await RewriterDemo.UpshiftAllStrings(workspace);
         }
     }
 }

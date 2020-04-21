@@ -4,8 +4,20 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace RoslynDemo
 {
-    public class ListTypesVisitor
+    public class ListTypesVisitor : CSharpSyntaxWalker
     {
+        public override void VisitClassDeclaration(ClassDeclarationSyntax node)
+        {
+            Write(node);
+            base.VisitClassDeclaration(node);
+        }
+
+        public override void VisitInterfaceDeclaration(InterfaceDeclarationSyntax node)
+        {
+            Write(node);
+            base.VisitInterfaceDeclaration(node);
+        }
+        
         private static void Write(BaseTypeDeclarationSyntax node)
         {
             var namespaceDeclarationSyntax = node.FirstAncestorOrSelf<NamespaceDeclarationSyntax>();
